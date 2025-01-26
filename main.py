@@ -1,8 +1,8 @@
 import pygame
 from constants import *
 from player import *
-
-black_color = (0, 0, 0)
+from asteroid import *
+from asteroidfield import *
 
 def main():
     print("Starting asteroids!")
@@ -13,10 +13,14 @@ def main():
     #Creating groups:
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
+    asteroids = pygame.sprite.Group()
 
     Player.containers = (updatable, drawable)
+    Asteroid.containers = (asteroids, updatable, drawable)
+    AsteroidField.containers = (updatable)
 
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    aster_field = AsteroidField()
 
     clock = pygame.time.Clock()
     dt = 0
@@ -26,7 +30,7 @@ def main():
             if event.type == pygame.QUIT:
                 return
 
-        screen.fill(black_color)
+        screen.fill(BLACK)
 
         for item in drawable:
             item.draw(screen)
